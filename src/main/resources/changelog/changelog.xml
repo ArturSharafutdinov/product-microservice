@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="10.1245" author="sharafutdinov">
+        <createTable tableName="PRODUCT">
+            <column name="PRODUCT_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="varchar(100)"/>
+            <column name="DESCRIPTION" type="varchar(255)"/>
+            <column name="PRICE" type="decimal"/>
+            <column name="RATING" type="int"/>
+        </createTable>
+        <createTable tableName="ORDERS">
+            <column name="ORDER_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ORDER_DATE" type="timestamp"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="10.1256" author="sharafutdinov">
+        <createTable tableName="ORDER_PRODUCTS">
+            <column name="ORDER_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_order_products_order" references="ORDERS(ORDER_ID)"/>
+            </column>
+            <column name="PRODUCT_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_order_products_product" references="PRODUCT(PRODUCT_ID)"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="ORDER_PRODUCTS" columnNames="ORDER_ID,PRODUCT_ID"
+                             constraintName="order_product_unique"/>
+    </changeSet>
+</databaseChangeLog>

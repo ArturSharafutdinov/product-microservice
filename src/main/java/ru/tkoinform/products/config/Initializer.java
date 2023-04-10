@@ -20,9 +20,8 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
             return;
         }
 
-        for (long i =1;i<11;i++){
+        for (long i =0;i<10;i++){
             Product product = new Product();
-            product.setId(i);
             product.setName("Product "+ i);
             product.setDescription("Description "+ i);
             product.setPrice(Math.floor(Math.random() * 10000 + 1000));

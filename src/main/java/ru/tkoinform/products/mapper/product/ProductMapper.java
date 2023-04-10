@@ -1,9 +1,12 @@
 package ru.tkoinform.products.mapper.product;
 
+import org.springframework.stereotype.Component;
+import ru.tkoinform.products.mapper.Mapper;
 import ru.tkoinform.products.persistence.domain.Product;
 import ru.tkoinform.products.persistence.dto.ProductDto;
 
-public class ProductMapper {
+@Component
+public class ProductMapper implements Mapper<Product, ProductDto> {
 
     public ProductDto mapToDto(Product product) {
         ProductDto dto = new ProductDto();
@@ -16,4 +19,8 @@ public class ProductMapper {
         return dto;
     }
 
+    @Override
+    public Product mapToEntity(ProductDto dto) {
+        return null;
+    }
 }
