@@ -8,6 +8,8 @@ import ru.tkoinform.products.persistence.dto.OrderDto;
 import ru.tkoinform.products.repository.order.OrderRepository;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -32,5 +34,11 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto fetchById(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         return orderMapper.mapToDto(order);
+    }
+
+    @Override
+    public List<OrderDto> fetchAll() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().map(order -> orderMapper.mapToDto(order)).collect(Collectors.toList());
     }
 }
